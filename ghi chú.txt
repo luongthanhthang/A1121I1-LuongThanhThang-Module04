@@ -8,6 +8,17 @@
     implementation group: 'org.springframework', name: 'spring-webmvc', version: '4.3.17.RELEASE'
     implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
 
+----------------------------------------------------------------------------
+    implementation group: 'org.springframework', name: 'spring-web', version: '5.1.5.RELEASE'
+    implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.1.5.RELEASE'
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0'
+    implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
+
 --------------BỎ VÀO HTML--------------
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+-----------Tiếng việt-------------
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) { options.encoding = 'UTF-8'}
+
