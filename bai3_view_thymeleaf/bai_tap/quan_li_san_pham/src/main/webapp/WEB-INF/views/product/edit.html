@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Edit Product</title>
+    </head>
+    <body>
+        <center>
+            <h1>Edit Product</h1>
+            <div th:insert="~{fragment/back-to-list :: back-to-list-frag}"></div>
+            <form action="/edit" method="post">
+                <table border="1">
+                    <tbody>
+                        <tr>
+                            <td>ID</td>
+                            <td><input readonly type="text" name="id" th:value="${product.id}"></td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td><input type="text" name="name" th:value="${product.name}"></td>
+                        </tr>
+                        <tr>
+                            <td>Describe</td>
+                            <td><input type="text" name="describe" th:value="${product.describe}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="submit" value="Edit Product"/>
+            </form>
+        </center>
+    </body>
+</html>

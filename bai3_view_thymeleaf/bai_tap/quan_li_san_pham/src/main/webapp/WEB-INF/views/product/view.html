@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>detail Product</title>
+    </head>
+    <body>
+        <center>
+            <h1 th:text="#{title}"></h1>
+            <h1>Product detail</h1>
+            <table border="1">
+                <tbody th:object="${product}">
+                    <tr>
+                        <td>ID</td>
+                        <td th:text="${product.id}"></td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td th:text="${product.name}"></td>
+                    </tr>
+                    <tr>
+                        <td>Describe</td>
+                        <td th:text="*{describe}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div th:insert="~{fragment/back-to-list :: back-to-list-frag}"></div>
+        </center>
+    </body>
+</html>

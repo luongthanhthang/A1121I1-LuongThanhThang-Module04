@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Create Product</title>
+    </head>
+    <body>
+        <center>
+            <h1>Create new Product</h1>
+            <div th:insert="~{fragment/back-to-list :: back-to-list-frag}"></div>
+            <form action="/create" method="post">
+                <table border="1">
+                    <tr>
+                        <td>ID</td>
+                        <td><input required type="text" name="id" placeholder="nhập id product"></td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td><input required type="text" name="name" placeholder="nhập name product"></td>
+                    </tr>
+                    <tr>
+                        <td>Describe</td>
+                        <td><input required type="text" name="describe" placeholder="nhập describe product"></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Register Product"/>
+            </form>
+        </center>
+    </body>
+</html>
