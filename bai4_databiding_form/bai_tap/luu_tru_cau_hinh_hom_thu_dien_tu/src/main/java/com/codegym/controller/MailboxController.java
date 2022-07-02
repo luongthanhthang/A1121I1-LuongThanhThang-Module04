@@ -12,7 +12,13 @@ import java.util.List;
 
 @Controller
 public class MailboxController {
+    @ModelAttribute("mailbox")
+    public Mailbox init() {
+        return new Mailbox();
+    }
+
     static Mailbox mailboxStatic = new Mailbox();
+
     @GetMapping("/display")
     public ModelAndView displayForm() {
         // dữ liệu list
@@ -30,11 +36,7 @@ public class MailboxController {
         pageSize.add(100);
 
         ModelAndView modelAndView = new ModelAndView("mailbox-form");
-        if (mailboxStatic.getLanguages() == null && !mailboxStatic.isSpamsFilter() && mailboxStatic.getPageSizes() == null && mailboxStatic.getSignature() == null) {
-            modelAndView.addObject("mailbox", new Mailbox());
-        } else {
-            modelAndView.addObject(mailboxStatic);
-        }
+        modelAndView.addObject(mailboxStatic);
         modelAndView.addObject("languageList", languages);
         modelAndView.addObject("pageSizeList", pageSize);
         return modelAndView;

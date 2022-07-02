@@ -30,19 +30,31 @@
                     <td colspan="6"><form:label path="name">Họ tên (Ghi chữ IN HOA) <span
                             class="important">(*)</span></form:label></td>
                 </tr>
+
                 <tr>
                     <td colspan="6"><form:input path="name" cssStyle="width: 100%"/></td>
                 </tr>
 
                 <tr>
-                    <td colspan="2"><form:label path="yearOfBirth">Năm sinh <span class="important">(*)</span></form:label></td>
-                    <td colspan="2"><form:label path="sex">Giới tính <span class="important">(*)</span></form:label></td>
-                    <td colspan="2"><form:label path="nation">Quốc tịch <span class="important">(*)</span></form:label></td>
+                    <td class="error">${mapError.name}</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"><form:label path="yearOfBirth">Năm sinh <span
+                            class="important">(*)</span></form:label></td>
+                    <td colspan="2"><form:label path="sex">Giới tính <span class="important">(*)</span></form:label>
+                    </td>
+                    <td colspan="2"><form:label path="nation">Quốc tịch <span class="important">(*)</span></form:label>
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="2"><form:select path="yearOfBirth" items="${yearOfBirthList}" cssStyle="width: 100%"/></td>
+                    <td colspan="2"><form:select path="yearOfBirth" items="${yearOfBirthList}"
+                                                 cssStyle="width: 100%"/></td>
                     <td colspan="2"><form:select path="sex" items="${sexList}" cssStyle="width: 100%"/></td>
                     <td colspan="2"><form:select path="nation" items="${nationList}" cssStyle="width: 100%"/></td>
+                </tr>
+                <tr>
+                    <td class="error">${mapError.birthday}</td>
                 </tr>
 
                 <tr>
@@ -51,24 +63,37 @@
                             class="important">(*)</span></form:label></td>
                 </tr>
                 <tr>
+                    <td class="error">${mapError.idCard}</td>
+                </tr>
+                <tr>
                     <td colspan="6"><form:input path="idCard" cssStyle="width: 100%"/></td>
                 </tr>
 
                 <tr>
                     <td colspan="6"><form:label
-                            path="idCard">Thông tin đi lại<span class="important">(*)</span></form:label></td>
+                            path="travel">Thông tin đi lại<span class="important">(*)</span></form:label></td>
                 </tr>
                 <tr>
                     <td colspan="6"><form:radiobuttons path="travel" items="${travelList}"/></td>
                 </tr>
+                <tr>
+                    <td class="error">${mapError.travelInfo}</td>
+                </tr>
+
 
                 <tr>
                     <td colspan="3"><form:label path="travelId">Số hiệu phương tiện</form:label></td>
                     <td colspan="3"><form:label path="seats">Số ghế</form:label></td>
                 </tr>
+
                 <tr>
                     <td colspan="3"><form:input path="travelId" cssStyle="width: 100%"/></td>
                     <td colspan="3"><form:input path="seats" cssStyle="width: 100%"/></td>
+                </tr>
+
+                <tr>
+                    <td colspan="1" class="error">${mapError.numberVehicle}</td>
+                    <td colspan="2" class="error">${mapError.numberSeat}</td>
                 </tr>
 
                 <tr>
@@ -83,12 +108,21 @@
                 </tr>
 
                 <tr>
+                    <td colspan="1" class="error">${mapError.dateStart}</td>
+                    <td colspan="2" class="error">${mapError.dateEnd}</td>
+                </tr>
+
+                <tr>
                     <td colspan="6"><form:label
                             path="attention">Trong vòng 14 ngày qua. Anh/Chị có đến tỉnh, thành phố nào?<span
                         class="important">(*)</span></form:label></td>
                 </tr>
                 <tr>
                     <td colspan="6"><form:textarea path="attention" cssStyle="width: 100%"/></td>
+                </tr>
+
+                <tr>
+                    <td class="error">${mapError.extraInfo}</td>
                 </tr>
             </table>
             <center>

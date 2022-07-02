@@ -8,19 +8,19 @@
         <center>
             <h1>Create new Product</h1>
             <div th:insert="~{fragment/back-to-list :: back-to-list-frag}"></div>
-            <form action="/create" method="post">
+            <form th:action="@{/create}" method="post" th:object="${product}">
                 <table border="1">
                     <tr>
                         <td>ID</td>
-                        <td><input required type="text" name="id" placeholder="nhập id product"></td>
+                        <td><input required type="text" th:field="*{id}" placeholder="nhập id product"></td>
                     </tr>
                     <tr>
                         <td>Name</td>
-                        <td><input required type="text" name="name" placeholder="nhập name product"></td>
+                        <td><input required type="text" th:field="*{name}" placeholder="nhập name product"></td>
                     </tr>
                     <tr>
                         <td>Describe</td>
-                        <td><input required type="text" name="describe" placeholder="nhập describe product"></td>
+                        <td><input required type="text" th:field="*{describe}" placeholder="nhập describe product"></td>
                     </tr>
                 </table>
                 <input type="submit" value="Register Product"/>

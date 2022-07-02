@@ -11,14 +11,14 @@ public class Person {
     private String travel;
     private String travelId;
     private String seats;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private String attention;
 
     public Person() {
     }
 
-    public Person(String name, String yearOfBirth, String sex, String nation, String idCard, String travel, String travelId, String seats, Date startDate, Date endDate, String attention) {
+    public Person(String name, String yearOfBirth, String sex, String nation, String idCard, String travel, String travelId, String seats, String startDate, String endDate, String attention) {
         this.name = name;
         this.yearOfBirth = yearOfBirth;
         this.sex = sex;
@@ -96,19 +96,19 @@ public class Person {
         this.seats = seats;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

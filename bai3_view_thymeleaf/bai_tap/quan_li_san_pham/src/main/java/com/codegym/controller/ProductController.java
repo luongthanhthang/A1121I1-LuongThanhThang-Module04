@@ -1,14 +1,11 @@
 package com.codegym.controller;
 
-import com.codegym.model.entity.Product;
-import com.codegym.model.service.IProductService;
+import com.codegym.entity.Product;
+import com.codegym.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +13,11 @@ import java.util.List;
 public class ProductController {
     @Autowired
     IProductService iProductService;
+
+    @ModelAttribute("product")
+    public Product initProduct(){
+        return new Product();
+    }
 
     @GetMapping("/list")
     public String display(Model model) {
@@ -35,14 +37,21 @@ public class ProductController {
     public String viewCreate(){
         return "product/create";
     }
+//
+//    @PostMapping("/create")
+//    public String create(
+//            @RequestParam("id") String id,
+//            @RequestParam("name") String name,
+//            @RequestParam("describe") String describe
+//    ) {
+//        Product product = new Product(id, name, describe);
+//        iProductService.create(product);
+//        return "redirect:/list";
+//    }
 
+//    ---------sử dụng @ModelAttribute---------
     @PostMapping("/create")
-    public String create(
-            @RequestParam("id") String id,
-            @RequestParam("name") String name,
-            @RequestParam("describe") String describe
-    ) {
-        Product product = new Product(id, name, describe);
+    public String create(@ModelAttribute("product") Product product) {
         iProductService.create(product);
         return "redirect:/list";
     }
@@ -77,4 +86,11 @@ public class ProductController {
         model.addAttribute("productList", productList);
         return "product/list";
     }
+
+//    @PostMapping("/delete")
+//    public String delete(Customer customer, RedirectAttributes redirect) {
+//        customerService.remove(customer.getId());
+//        redirect.addFlashAttribute("success", "Removed customer successfully!");
+//        return "redirect:/customer";
+//    }
 }
