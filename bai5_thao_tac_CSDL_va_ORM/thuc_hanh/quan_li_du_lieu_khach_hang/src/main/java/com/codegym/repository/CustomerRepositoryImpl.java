@@ -16,7 +16,6 @@ import java.util.Map;
 
 @Repository
 @Transactional
-@EnableTransactionManagement
 public class CustomerRepositoryImpl implements ICustomerRepository {
 
     @PersistenceContext

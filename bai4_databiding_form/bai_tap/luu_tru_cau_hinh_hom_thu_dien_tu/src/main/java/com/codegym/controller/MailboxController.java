@@ -1,6 +1,10 @@
 package com.codegym.controller;
 
 import com.codegym.model.entity.Mailbox;
+import com.codegym.model.service.ILanguageService;
+import com.codegym.model.service.IPageSizeService;
+import com.codegym.model.service.LanguageServiceImpl;
+import com.codegym.model.service.PageSizeServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +16,8 @@ import java.util.List;
 
 @Controller
 public class MailboxController {
+    ILanguageService languageService = new LanguageServiceImpl();
+    IPageSizeService pageSizeService = new PageSizeServiceImpl();
     @ModelAttribute("mailbox")
     public Mailbox init() {
         return new Mailbox();
@@ -21,24 +27,11 @@ public class MailboxController {
 
     @GetMapping("/display")
     public ModelAndView displayForm() {
-        // dữ liệu list
-        List<String> languages = new ArrayList<>();
-        languages.add("English");
-        languages.add("Vietnamese");
-        languages.add("Japanese");
-        languages.add("Chinese");
-
-        List<Integer> pageSize = new ArrayList<>();
-        pageSize.add(5);
-        pageSize.add(10);
-        pageSize.add(15);
-        pageSize.add(25);
-        pageSize.add(100);
 
         ModelAndView modelAndView = new ModelAndView("mailbox-form");
         modelAndView.addObject(mailboxStatic);
-        modelAndView.addObject("languageList", languages);
-        modelAndView.addObject("pageSizeList", pageSize);
+        modelAndView.addObject("languageList", languageService.languageList());
+        modelAndView.addObject("pageSizeList", pageSizeService.pageSizeList());
         return modelAndView;
     }
 
@@ -46,18 +39,6 @@ public class MailboxController {
     public ModelAndView update(@ModelAttribute("mailbox") Mailbox mailbox) {
         // dữ liệu list
         mailboxStatic = mailbox;
-        List<String> languages = new ArrayList<>();
-        languages.add("English");
-        languages.add("Vietnamese");
-        languages.add("Japanese");
-        languages.add("Chinese");
-
-        List<Integer> pageSize = new ArrayList<>();
-        pageSize.add(5);
-        pageSize.add(10);
-        pageSize.add(15);
-        pageSize.add(25);
-        pageSize.add(100);
         ModelAndView modelAndView = new ModelAndView("mailbox-detail", "mailbox", mailbox);
         return modelAndView;
     }

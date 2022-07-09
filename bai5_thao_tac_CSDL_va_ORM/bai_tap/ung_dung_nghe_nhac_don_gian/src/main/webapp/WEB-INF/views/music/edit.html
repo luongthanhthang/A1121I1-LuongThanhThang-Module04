@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Edit Product</title>
+    </head>
+    <body>
+        <center>
+            <h1>Edit Product</h1>
+            <a th:href="@{/list}">Back to list</a>
+            <form action="/edit" method="post">
+                <table border="1">
+                    <tbody th:object="${music}">
+                        <tr>
+                            <td>Name</td>
+                            <td><input readonly type="text" th:field="*{name}"></td>
+                        </tr>
+                        <tr>
+                            <td>Singer Name</td>
+                            <td><input required type="text" th:field="*{singerName}"></td>
+                        </tr>
+                        <tr>
+                            <td>Category</td>
+                            <td><input required type="text" th:field="*{category}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>File Path</td>
+                            <td><input type="text" th:field="*{filePath}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="submit" value="Edit Product"/>
+            </form>
+        </center>
+    </body>
+</html>

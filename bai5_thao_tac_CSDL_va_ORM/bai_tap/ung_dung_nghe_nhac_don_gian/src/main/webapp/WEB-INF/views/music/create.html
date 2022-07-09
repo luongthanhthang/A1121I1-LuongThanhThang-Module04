@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Create Product</title>
+    </head>
+    <body>
+        <center>
+            <h1>Create new Product</h1>
+            <a th:href="@{/list}">Back to list</a>
+            <form th:action="@{/create}" method="post" th:object="${musicForm}" novalidate="novalidate" enctype="multipart/form-data">
+                <table border="1">
+                    <tr>
+                        <td>Name</td>
+                        <td><input required type="text" th:field="*{name}" placeholder="nhập name"></td>
+                    </tr>
+                    <tr>
+                        <td>Singer Name</td>
+                        <td><input required type="text" th:field="*{singerName}" placeholder="nhập Singer Name"></td>
+                    </tr>
+                    <tr>
+                        <td>Category</td>
+                        <td><input required type="text" th:field="*{category}" placeholder="nhập Category"></td>
+                    </tr>
+                    <tr>
+                        <td>File Path</td>
+                        <td><input required type="file" th:field="*{filePath}"></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Register Music"/>
+            </form>
+        </center>
+    </body>
+</html>

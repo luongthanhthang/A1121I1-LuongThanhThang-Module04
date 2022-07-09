@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>detail Product</title>
+    </head>
+    <body>
+        <center>
+            <h1>Product detail</h1>
+            <table border="1">
+                <tbody th:object="${music}">
+                    <tr>
+                        <td>Name</td>
+                        <td th:text="${music.name}"></td>
+                    </tr>
+                    <tr>
+                        <td>Singer Name</td>
+                        <td th:text="*{singerName}"></td>
+                    </tr>
+                    <tr>
+                        <td>Category</td>
+                        <td th:text="*{category}"></td>
+                    </tr>
+                    <tr>
+                        <td>File Path</td>
+                        <td th:text="*{filePath}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a th:href="@{/list}">Back to list</a>
+        </center>
+    </body>
+</html>

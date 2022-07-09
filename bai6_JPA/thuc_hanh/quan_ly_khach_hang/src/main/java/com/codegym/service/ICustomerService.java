@@ -1,0 +1,14 @@
+package com.codegym.service;
+
+import com.codegym.entity.Customer;
+
+import java.util.List;
+
+public interface ICustomerService {
+    void create(Customer customer);
+    void update(Customer customer);
+    void delete(String id);
+    List<Customer> findAll();
+    Customer findById(String id);
+    List<Customer> search(String name);
+}
