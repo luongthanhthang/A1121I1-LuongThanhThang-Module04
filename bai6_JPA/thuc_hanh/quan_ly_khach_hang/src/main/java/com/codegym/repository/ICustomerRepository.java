@@ -19,7 +19,7 @@ public interface ICustomerRepository extends JpaRepository<Customer, String> {
     @Query(value ="delete from Customer where id = :id", nativeQuery = false)
     void delete(@Param("id") String id);
 
-    @Query(value ="select id, name, email, address from Customer where name like :nameCustomer", nativeQuery = false)
+    @Query(value ="select customer_id, name, email, address from customer where name like :nameCustomer", nativeQuery = true)
     List<Customer> search(@Param("nameCustomer") String name);
 
 //    List<Customer> findAllByNameContaining(String name);

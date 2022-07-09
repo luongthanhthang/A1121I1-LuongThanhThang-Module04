@@ -46,6 +46,6 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public List<Customer> search(String name) {
-        return customerRepository.search(name);
+        return customerRepository.search("%" + name + "%");
     }
 }

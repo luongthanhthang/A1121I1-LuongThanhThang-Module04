@@ -73,7 +73,6 @@ public class CustomerController {
     @GetMapping("/search")
     public String search(@RequestParam("name") String name, Model model) {
         List<Customer> customerList = customerService.search(name);
-        customerList.forEach(System.out::println);
         model.addAttribute("customerList", customerList);
         return "customer/list";
     }
