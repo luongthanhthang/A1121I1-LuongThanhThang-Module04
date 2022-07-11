@@ -20,7 +20,8 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public void create(Customer customer) {
-        customerRepository.save(customer);
+//        customerRepository.save(customer);
+        customerRepository.insertCustomerProcedure(customer.getId(), customer.getName(), customer.getEmail(), customer.getAddress());
     }
 
     @Override

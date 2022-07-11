@@ -22,5 +22,9 @@ public interface ICustomerRepository extends JpaRepository<Customer, String> {
     @Query(value ="select customer_id, name, email, address from customer where name like :nameCustomer", nativeQuery = true)
     List<Customer> search(@Param("nameCustomer") String name);
 
+    @Modifying
+    @Query(value = "call insert_customer(:customer_id, :name, :email, :address)", nativeQuery = true)
+    void insertCustomerProcedure(@Param("customer_id") String id, @Param("name") String name, @Param("email") String email, @Param("address") String address);
+
 //    List<Customer> findAllByNameContaining(String name);
 }
