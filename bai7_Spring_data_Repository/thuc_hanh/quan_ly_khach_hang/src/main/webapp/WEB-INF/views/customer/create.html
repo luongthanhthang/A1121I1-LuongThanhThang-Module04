@@ -22,6 +22,16 @@
                     <td><input type="text" th:field="*{email}" placeholder="nhập email customer"></td>
                 </tr>
                 <tr>
+                    <td>Province:</td>
+                    <td>
+                        <select >
+                            <option th:value="" th:text="Chọn"></option>
+                            <option th:each="province: ${provinceList}" th:value="${province.id}"
+                                    th:text="${province.name}" th:selected="${province.id.equals(customer.province.id)}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td>Address</td>
                     <td><input type="text" th:field="*{address}" placeholder="nhập address customer"></td>
                 </tr>

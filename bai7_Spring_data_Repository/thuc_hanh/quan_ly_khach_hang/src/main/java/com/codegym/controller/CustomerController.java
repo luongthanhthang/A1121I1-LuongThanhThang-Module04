@@ -1,7 +1,9 @@
 package com.codegym.controller;
 
 import com.codegym.entity.Customer;
+import com.codegym.entity.Province;
 import com.codegym.service.ICustomerService;
+import com.codegym.service.IProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +21,14 @@ public class CustomerController {
     @Autowired
     private ICustomerService customerService;
 
+    @Autowired
+    private IProvinceService provinceService;
+
     @ModelAttribute("customer")
     public Customer init() {
         return new Customer();
     }
+
 
     @GetMapping("/list")
     public String list(Model model,@PageableDefault(value = 5) Pageable pageable, @RequestParam("name") Optional<String> name) {
@@ -52,8 +58,13 @@ public class CustomerController {
     }
 
     @GetMapping("/create")
-    public String viewCreate() {
-        return "/customer/create";
+    public String viewCreate(Model model) {
+        List<Province> provinceList = provinceService.findAll();
+        Customer customer = new Customer();
+        customer.setProvince(new Province());
+        model.addAttribute("provinceList", provinceList);
+        model.addAttribute("customer", customer);
+        return "customer/create";
     }
 
     //    @PostMapping("/create")

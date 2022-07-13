@@ -1,8 +1,7 @@
 package com.codegym.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 //@Table(name = "khach_hang")
@@ -14,10 +13,9 @@ public class Customer{
     private String email;
     private String address;
 
-    public Customer(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    @ManyToOne
+    @JoinColumn(name = "province_id")
+    private Province province;
 
     public Customer() {
     }
@@ -59,6 +57,14 @@ public class Customer{
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
     }
 
     @Override
