@@ -1,29 +1,26 @@
 plugins {
+    id 'org.springframework.boot' version '2.7.1'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
-    id 'war'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group = 'com'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0'
-    compile group: 'org.springframework', name: 'spring-core', version: '5.3.2'
-    compile group: 'org.springframework', name: 'spring-context', version: '5.3.2'
-    compile group: 'org.springframework', name: 'spring-beans', version: '5.3.2'
-    implementation group: 'org.springframework', name: 'spring-web', version: '5.1.5.RELEASE'
-    implementation group: 'org.springframework', name: 'spring-webmvc', version: '5.1.5.RELEASE'
-    implementation group: 'org.springframework', name: 'spring-tx', version: '5.1.5.RELEASE'
-    implementation group: 'org.springframework', name: 'spring-orm', version: '5.1.5.RELEASE'
-    implementation group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
-    implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.5.3'
-    implementation group: 'org.hibernate', name: 'hibernate-core', version: '5.4.1.Final'
-    implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.4.10.Final'
-    implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.47'
-    implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.1.0.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'mysql:mysql-connector-java'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
-tasks.withType(JavaCompile) { options.encoding = 'UTF-8'}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

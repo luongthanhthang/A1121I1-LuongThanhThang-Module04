@@ -16,6 +16,10 @@ public class Blog {
     @Column(name = "blog_describe")
     private String describe;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     public Blog() {
     }
 
@@ -56,5 +60,13 @@ public class Blog {
 
     public void setDescribe(String describe) {
         this.describe = describe;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

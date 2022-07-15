@@ -24,14 +24,9 @@ public class CustomerController {
     @Autowired
     private IProvinceService provinceService;
 
-    @ModelAttribute("customer")
-    public Customer init() {
-        return new Customer();
-    }
-
 
     @GetMapping("/list")
-    public String list(Model model,@PageableDefault(value = 5) Pageable pageable, @RequestParam("name") Optional<String> name) {
+    public String list(Model model,@PageableDefault(value = 5, sort = "name") Pageable pageable, @RequestParam("name") Optional<String> name) {
         Page<Customer> customerList;
         if(name.isPresent()) {
             customerList = customerService.search(name.get(), pageable);
@@ -81,6 +76,8 @@ public class CustomerController {
     @GetMapping("/edit/{id}")
     public String viewEdit(@PathVariable("id") String id, Model model) {
         Customer customer = customerService.findById(id);
+        List<Province> provinceList = provinceService.findAll();
+        model.addAttribute("provinceList", provinceList);
         model.addAttribute("customer", customer);
         return "customer/edit";
     }

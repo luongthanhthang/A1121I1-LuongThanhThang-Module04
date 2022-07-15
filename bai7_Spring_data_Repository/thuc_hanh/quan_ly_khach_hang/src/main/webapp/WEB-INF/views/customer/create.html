@@ -24,10 +24,10 @@
                 <tr>
                     <td>Province:</td>
                     <td>
-                        <select >
-                            <option th:value="" th:text="Chọn"></option>
-                            <option th:each="province: ${provinceList}" th:value="${province.id}"
-                                    th:text="${province.name}" th:selected="${province.id.equals(customer.province.id)}"></option>
+                        <select th:field = "*{province}">
+                            <option value="">select option</option>
+                            <option th:each="provice : ${provinceList}" th:value="${provice.id}" th:text="${provice.name}"
+                            th:selected="${provice.id.equals(customer.province.id)}"></option>
                         </select>
                     </td>
                 </tr>
@@ -42,5 +42,6 @@
                 </tr>
             </table>
         </form>
+
     </body>
 </html>
