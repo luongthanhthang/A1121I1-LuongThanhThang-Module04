@@ -6,6 +6,7 @@ import com.codegym.service.IBlogService;
 import com.codegym.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Controller
@@ -25,16 +28,43 @@ public class BlogController {
     @Autowired
     ICategoryService categoryService;
 
+//    @GetMapping("/list")
+//    public String display(Model model, @PageableDefault(value = 4) Pageable pageable, @RequestParam("name") Optional<String> name) {
+//        List<Category> categoryList = categoryService.findAll();
+//        Page<Blog> blogList;
+//        if(name.isPresent()) {
+//            blogList = blogService.search(name.get(), pageable);
+//            model.addAttribute("name", name.get());
+//        } else {
+//            blogList = blogService.findAll(pageable);
+//        }
+//        model.addAttribute("blogList", blogList);
+//        model.addAttribute("categoryList", categoryList);
+//        return "blog/list";
+//    }
+
     @GetMapping("/list")
-    public String display(Model model, @PageableDefault(value = 4) Pageable pageable, @RequestParam("name") Optional<String> name) {
+    public String display(Model model, @RequestParam("page")  Optional<Integer> page,  @RequestParam("size") Optional<Integer> size,
+                          @RequestParam("name") Optional<String> name) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(4);
+
         List<Category> categoryList = categoryService.findAll();
         Page<Blog> blogList;
         if(name.isPresent()) {
-            blogList = blogService.search(name.get(), pageable);
+            blogList = blogService.search(name.get(), PageRequest.of(currentPage - 1, pageSize));
             model.addAttribute("name", name.get());
         } else {
-            blogList = blogService.findAll(pageable);
+            blogList = blogService.findAll(PageRequest.of(currentPage - 1, pageSize));
         }
+        int totalPages = blogList.getTotalPages();
+        if(totalPages > 1) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1 , totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
+
         model.addAttribute("blogList", blogList);
         model.addAttribute("categoryList", categoryList);
         return "blog/list";

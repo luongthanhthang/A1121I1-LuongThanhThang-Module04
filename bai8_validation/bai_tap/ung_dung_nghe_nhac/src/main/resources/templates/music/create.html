@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Create Product</title>
+    </head>
+    <body>
+        <center>
+            <h1>Create new Product</h1>
+            <a th:href="@{/list}">Back to list</a>
+            <form th:action="@{/create}" method="post" th:object="${musicForm}" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" th:field="*{name}" placeholder="nhập name"></td>
+                        <td><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error name</span></td>
+                    </tr>
+                    <tr>
+                        <td>Singer Name</td>
+                        <td><input type="text" th:field="*{singerName}" placeholder="nhập Singer Name"></td>
+                        <td><span th:if="${#fields.hasErrors('singerName')}" th:errors="*{singerName}">Error name</span></td>
+                    </tr>
+                    <tr>
+                        <td>Category</td>
+                        <td><input type="text" th:field="*{category}" placeholder="nhập Category"></td>
+                        <td><span th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Error name</span></td>
+                    </tr>
+                    <tr>
+                        <td>File Path</td>
+                        <td><input type="file" th:field="*{filePath}"></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Register Music"/>
+            </form>
+        </center>
+    </body>
+</html>

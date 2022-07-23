@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>List Music</title>
+    </head>
+    <body>
+        <center>
+            <h1>List music</h1>
+            <p th:text="${mess}"></p>
+            <table border="1">
+                <thead >
+                    <tr>
+                        <th>STT</th>
+                        <th>Name</th>
+                        <th>Singer</th>
+                        <th>Category</th>
+                        <th>FilePath</th>
+                        <th colspan="3"><a th:href="@{/create}">CREATE</a></th>
+                    </tr>
+                </thead>
+                <tbody th:each="music, iterStat: ${musicList}">
+                    <tr>
+                        <td th:text="${iterStat.count}"></td>
+                        <td th:text="${music.name}"></td>
+                        <td th:text="${music.singerName}"></td>
+                        <td th:text="${music.category}"></td>
+                        <td>
+                            <audio controls>
+                                <source th:src="@{'/music_module4/' + ${music.filePath}}" type="audio/ogg">
+                                <source th:src="@{'/music_module4/' + ${music.filePath}}" type="audio/mpeg">
+                            </audio>
+                        </td>
+                        <td><a th:href="@{/view/{id}(id=${music.name})}">VIEW</a></td>
+                        <td><a th:href="@{/delete/{id}(id=${music.name})}">DELETE</a></td>
+                        <td><a th:href="@{/edit/{id}(id=${music.name})}">EDIT</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </center>
+    </body>
+</html>
