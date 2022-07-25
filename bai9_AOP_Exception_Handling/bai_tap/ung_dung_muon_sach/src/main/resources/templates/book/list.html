@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <center>
+            <h1 class="">List book</h1>
+            <br>
+            <form th:action="@{/borrow/delete}" method="get">
+                <span>Nhập mã sách muốn trả</span>
+                <input type="text" name="maTraSach">
+                <input type="submit" value="Trả sách">
+            </form>
+            <br>
+            <h2 th:text="${mess}" style="color: red"></h2>
+            <br>
+            <table border="1px">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th colspan="4"><a th:href="@{/book/create}"><button style="color: blue">Tạo sách</button></a></th>
+                    </tr>
+                </thead>
+                <tbody th:each="book, iterstat: ${bookList}">
+                    <tr>
+                        <td th:text="${iterstat.count}"></td>
+                        <td th:text="${book.name}"></td>
+                        <td th:text="${book.quantity}"></td>
+                        <td th:text="${book.status} ? 'Còn sách' : 'Hết sách'"></td>
+                        <td><a th:href="@{/borrow/create/{id}(id=${book.id})}"><button>Mượn sách</button></a></td>
+                        <td><a th:href="@{/book/delete/{id}(id=${book.id})}"><button>Xoá sách</button></a></td>
+                        <td><a th:href="@{/book/edit/{id}(id=${book.id})}"><button>Edit sách</button></a></td>
+                        <td><a th:href="@{/book/view/{id}(id=${book.id})}"><button>View sách</button></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </center>
+
+        <div style="bottom: 0px; right: 0px">
+            <h3>Borrow List</h3>
+            <table border="1px">
+                <thead>
+                    <tr>
+                        <th>Borrow ID</th>
+                        <th>Name Book Borrow</th>
+                    </tr>
+                </thead>
+                <tbody th:each="borrow: ${borrowList}">
+                    <tr>
+                        <td th:text="${borrow.borrowId}"></td>
+                        <td th:text="${borrow.book.name}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>View</title>
+    </head>
+    <body>
+        <center>
+            <h1>view Book</h1>
+            <table border="1px">
+                <tr>
+                    <td>Tên sách:</td>
+                    <td th:text="${book.name}"></td>
+                </tr>
+                <tr>
+                    <td>Số lượng sách:</td>
+                    <td th:text="${book.quantity}"></td>
+                </tr>
+                <tr>
+                    <td>Trạng thái sách:</td>
+                    <td th:text="${book.status} ? 'Còn sách' : 'Hết sách'"></td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{/book/list}"><button>Quay lại</button></a></td>
+                </tr>
+            </table>
+        </center>
+    </body>
+</html>

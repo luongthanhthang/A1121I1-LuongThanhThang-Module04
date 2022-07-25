@@ -1,0 +1,103 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{template/template::header('Create product')}">
+    </head>
+    <body>
+        <div th:replace="~{template/template::pageloader}"></div>
+        <nav th:replace="~{template/template::navbar}"></nav>
+        <section th:replace="~{product/layout::sidebar}"></section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Vertical Layout -->
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="header">
+                                <h2>
+                                    Add new Product
+                                </h2>
+                            </div>
+                            <div class="body">
+                                <form id="form-register" th:action="@{/product/create}" method="post"
+                                      th:object="${product}" enctype="multipart/form-data">
+                                    <label for="id">ID: <span style="color: red;"> *</span></label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="id" th:field="*{id}" class="form-control"
+                                                   placeholder="Product ID" tabindex="1" autofocus="autofocus"/>
+                                        </div>
+                                    </div>
+
+                                    <label for="name">Name: <span style="color: red;"> *</span></label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input id="name" th:field="*{name}" class="form-control"
+                                                   placeholder="Product Name" tabindex="2"/>
+                                        </div>
+                                    </div>
+
+
+                                    <label for="price">Price: <span style="color: red;"> *</span></label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="number" id="price" th:field="*{price}" class="form-control"
+                                                   placeholder="Price" tabindex="2"/>
+                                        </div>
+                                    </div>
+
+
+                                    <label for="Describe">Describe: <span style="color: red;"> *</span></label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea id="Describe" th:field="*{description}" class="form-control"
+                                                      placeholder="Description" tabindex="2" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <label for="manufacturingDate">NSX: <span style="color: red;"> *</span></label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="date" id="manufacturingDate" th:field="*{startDate}"
+                                                   class="form-control" placeholder="NSX" tabindex="2"/>
+                                        </div>
+                                    </div>
+
+                                    <label for="outOfDate">HSD: <span style="color: red;"> *</span></label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="date" id="outOfDate" th:field="*{endDate}"
+                                                   class="form-control" placeholder="HSD" tabindex="2"/>
+                                        </div>
+                                    </div>
+
+
+                                    <label for="factory">Factory: <span style="color: red;"> *</span></label>
+                                    <div id="factory" class="form-group">
+                                        <div class="form-line">
+                                            <select th:field="*{factory}" class="form-control" tabindex="4">
+                                                <option value=""></option>
+                                                <option th:each="factory : ${factoryList}"
+                                                        th:value="${factory.factoryCode}"
+                                                        th:text="${factory.name}"
+                                                        th:selected="${factory.factoryCode.equals(product.factory.factoryCode)}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-custom" tabindex="12"><i
+                                            class="fa fa-check" aria-hidden="true"></i> Add
+                                    </button>
+                                    <a th:href="@{/product/list}" class="btn btn-primary btn-custom" tabindex="13"><i
+                                            class="fa fa-remove" aria-hidden="true"></i> Back</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div th:replace="~{template/template::script}"></div>
+        <div th:replace="~{template/template::footer}"></div>
+    </body>
+</html>

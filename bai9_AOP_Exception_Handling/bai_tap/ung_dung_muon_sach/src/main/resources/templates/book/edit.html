@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <center>
+            <h1>Edit Book</h1>
+            <form th:action="@{/book/edit}" method="post" th:object="${book}">
+                <table>
+                    <td><input th:field="*{id}" th:value="${book.id}" hidden></td>
+                    <td><input th:field="*{status}" th:value="${book.id}" hidden></td>
+                    <tr>
+                        <td>Nhập tên sách:</td>
+                        <td><input th:field="*{name}" th:value="${book.name}"></td>
+                    </tr>
+                    <tr>
+                        <td>Nhập số lượng sách:</td>
+                        <td><input th:field="*{quantity}" th:value="${book.quantity}"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Edit sách"></td>
+                    </tr>
+                </table>
+            </form>
+        </center>
+    </body>
+</html>
