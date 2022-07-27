@@ -1,7 +1,6 @@
 package com.codegym.entity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Cart {
     private Map<Product, Integer> products = new HashMap<>();
@@ -75,7 +74,7 @@ public class Cart {
         products.replace(entry.getKey(), newQuantity);
     }
 
-    // Xoá luông sản phẩm đó trong giỏ hàng
+    // Xoá luôn sản phẩm đó trong giỏ hàng
     public void deleteProduct(Product product) {
         Map.Entry<Product, Integer> entry = selectItemInCart(product);
         products.remove(entry.getKey());
@@ -85,8 +84,17 @@ public class Cart {
     public Double countTotalPayment() {
         double payment = 0;
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
-            payment = entry.getKey().getPrice() * entry.getValue();
+            payment += entry.getKey().getPrice() * entry.getValue();
         }
         return payment;
+    }
+
+    // thanh toán
+    public void pay() {
+        Set<Product> productSet = new HashSet<>();
+        for (Map.Entry<Product, Integer> entry: products.entrySet()) {
+            productSet.add(entry.getKey());
+        }
+        products.keySet().removeAll(productSet);
     }
 }

@@ -4,14 +4,17 @@ import com.codegym.entity.Factory;
 import com.codegym.entity.Product;
 import com.codegym.service.IFactoryService;
 import com.codegym.service.IProductService;
+import com.codegym.validation.ProductValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -88,9 +91,18 @@ public class ProductController {
     }
 
 
-
     @PostMapping("/create")
-    public String create(@ModelAttribute("product") Product product, RedirectAttributes redirectAttributes) {
+    public String create(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        ProductValidation productValidation = new ProductValidation();
+        productValidation.validate(product, bindingResult);
+        if (bindingResult.hasErrors()) {
+            product.setFactory(new Factory());
+            List<Factory> factoryList = iFactoryService.findAll();
+            model.addAttribute("product", product);
+            model.addAttribute("factoryList", factoryList);
+            return "product/create";
+        }
+
         redirectAttributes.addFlashAttribute("mess", "Thêm mới thành công");
         iProductService.create(product);
         return "redirect:/product/list";

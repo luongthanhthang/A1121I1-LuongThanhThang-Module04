@@ -2,9 +2,57 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <title>Cart</title>
+        <title>Shopping Cart</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+              crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+                crossorigin="anonymous"></script>
     </head>
     <body>
-        
+        <center>
+            <p>
+                <a class="btn btn-outline-primary mt-3" href="/shop">Shop</a>
+            </p>
+            <h1>Your Cart</h1>
+            <p th:text="${mess}" class="text text-primary"></p>
+            <div th:object="${cart}">
+                <h3>Total Items: <span th:text="${cart.countItemQuantity()}"></span></h3>
+                <h3>Total Products: <span th:text="${cart.countProductQuantity()}"></span></h3>
+                <table border="1px">
+                    <tr>
+                        <th>Item</th>
+                        <th>Image</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                    <tr th:each="product: ${cart.products}">
+                        <td th:text="${product.getKey().name}"></td>
+                        <td><img th:src="${product.getKey().image}" width="125px" height="100px" alt="..."></td>
+                        <td>
+                            <a class="btn btn-outline-primary" style="text-decoration: none" id="decrease_button"
+                               th:href="@{/add/__${product.getKey().id}__(action='reduce')}" th:text="${'-'}"></a>
+                            <span th:text="${product.getValue()}"></span>
+                            <a class="btn btn-outline-primary" style="text-decoration: none" id="increase_button"
+                               th:href="@{/add/__${product.getKey().id}__(action='show')}"
+                               th:text="${'+'}"></a>
+                        </td>
+                        <td th:text="${product.getKey().price}"></td>
+                        <td><a th:href="@{/add/__${product.getKey().id}__(action='delete')}" class="btn btn-primary">Xoá
+                            sản phẩm</a></td>
+                    </tr>
+                    <tr>
+                        <td class="text text-danger">Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td th:text="${cart.countTotalPayment()}"></td>
+                    </tr>
+                </table>
+                <a th:href="@{/pay}" class="btn btn-danger">Thanh toán</a>
+            </div>
+        </center>
     </body>
 </html>

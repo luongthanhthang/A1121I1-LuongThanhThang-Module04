@@ -25,6 +25,7 @@
                                         <div class="form-line">
                                             <input id="id" th:field="*{id}" class="form-control"
                                                    placeholder="Product ID" tabindex="1" autofocus="autofocus"/>
+                                            <p th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Name Error</p>
                                         </div>
                                     </div>
 
@@ -33,6 +34,7 @@
                                         <div class="form-line">
                                             <input id="name" th:field="*{name}" class="form-control"
                                                    placeholder="Product Name" tabindex="2"/>
+                                            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
                                         </div>
                                     </div>
 
@@ -42,6 +44,7 @@
                                         <div class="form-line">
                                             <input type="number" id="price" th:field="*{price}" class="form-control"
                                                    placeholder="Price" tabindex="2"/>
+                                            <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Name Error</p>
                                         </div>
                                     </div>
 
@@ -51,6 +54,7 @@
                                         <div class="form-line">
                                             <textarea id="Describe" th:field="*{description}" class="form-control"
                                                       placeholder="Description" tabindex="2" rows="3"></textarea>
+                                            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Name Error</p>
                                         </div>
                                     </div>
 
@@ -59,6 +63,7 @@
                                         <div class="form-line">
                                             <input type="date" id="manufacturingDate" th:field="*{startDate}"
                                                    class="form-control" placeholder="NSX" tabindex="2"/>
+                                            <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Name Error</p>
                                         </div>
                                     </div>
 
@@ -67,6 +72,7 @@
                                         <div class="form-line">
                                             <input type="date" id="outOfDate" th:field="*{endDate}"
                                                    class="form-control" placeholder="HSD" tabindex="2"/>
+                                            <p th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">Name Error</p>
                                         </div>
                                     </div>
 

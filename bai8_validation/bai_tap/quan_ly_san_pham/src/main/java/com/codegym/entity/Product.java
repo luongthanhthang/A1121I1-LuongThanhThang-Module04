@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import java.util.Date;
 
@@ -15,14 +16,15 @@ public class Product {
     @Column(name = "product_id", length = 20)
     @NotBlank
     private String id;
-    @NotBlank
+    @NotEmpty
     private String name;
     @Range(max = 10000, min = 100)
     private Double price;
+    @NotEmpty
     private String description;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date startDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date endDate;
 
     public Product() {

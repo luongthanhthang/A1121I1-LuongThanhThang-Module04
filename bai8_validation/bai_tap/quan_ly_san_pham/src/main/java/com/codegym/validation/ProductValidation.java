@@ -19,16 +19,16 @@ public class ProductValidation implements Validator {
         Product product = (Product) target;
 
         if (product.getStartDate() == null) {
-            errors.rejectValue("startTime", "StarTimeNotNull");
+            errors.rejectValue("startDate", "StartTimeNotNull");
         }
 
         if (product.getEndDate() == null) {
-            errors.rejectValue("endTime", "EndTimeNotNull");
+            errors.rejectValue("endDate", "EndTimeNotNull");
         } else {
-            LocalDate startTime = product.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate endTime = product.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            if (Period.between(startTime, endTime).getDays() < 0) {
-                errors.rejectValue("endTime", "DateComparison");
+            LocalDate startDate = product.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate endDate = product.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (Period.between(startDate, endDate).getDays() < 0) {
+                errors.rejectValue("endDate", "DateComparison");
             }
         }
     }
