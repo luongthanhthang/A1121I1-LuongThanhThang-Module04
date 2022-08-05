@@ -30,7 +30,9 @@ public class BlogRestController {
     IBlogService blogService;
 
     @GetMapping
-    public ResponseEntity<Page<Blog>> findAllBlog(@PageableDefault(direction = Sort.Direction.ASC, sort = {"id"}, value = 5) Pageable pageable) {
+    public ResponseEntity<Page<Blog>> findAllBlog(@PageableDefault(
+//            direction = Sort.Direction.ASC, sort = {"id"},
+            value = 4) Pageable pageable) {
         Page<Blog> blogPage = blogService.findAll(pageable);
         if (blogPage == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

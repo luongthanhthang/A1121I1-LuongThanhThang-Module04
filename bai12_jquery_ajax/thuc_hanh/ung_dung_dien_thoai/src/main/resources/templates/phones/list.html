@@ -73,7 +73,7 @@
             // script với nội dung như sau để gửi lệnh xóa
             $(document).ready(function () {
                 //sư kiện nào thực hiện Ajax
-                $('.deleteSmartphone').click(function (event) {
+                $("#smartphoneList").on('click', '.deleteSmartphone', function (event) {
                     //lay du lieu
                     let a = $(this);
                     let smartphoneId = a.attr("href");
@@ -90,12 +90,12 @@
                     });
                     //chặn sự kiện mặc định của thẻ
                     event.preventDefault();
-                });
+                })
             })
 
             // script với nội dung như sau để gửi lệnh show lại đối tượng trước khi edit
             $(document).ready(function () {
-                $('.editSmartPhone').click(function (event) {
+                $("#smartphoneList").on('click', '.editSmartPhone', function (event) {
                     let a = $(this);
                     let smartphoneId = a.attr("href");
 
@@ -177,7 +177,7 @@
                 <td>Price</td>
                 <td>Delete</td>
             </tr>
-            <th:block th:each="smartphone: ${smartphones}">
+            <tbody th:each="smartphone: ${smartphones}">
                 <tr>
                     <td th:text="${smartphone.producer}"></td>
                     <td th:text="${smartphone.model}"></td>
@@ -185,7 +185,7 @@
                     <td><a class="deleteSmartphone" th:href="${smartphone.id}">Delete</a></td>
                     <td><a class="editSmartPhone" th:href="${smartphone.id}">Edit</a></td>
                 </tr>
-            </th:block>
+            </tbody>
         </table>
     </body>
 </html>
