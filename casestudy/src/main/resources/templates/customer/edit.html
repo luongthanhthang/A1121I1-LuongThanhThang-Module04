@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="/template/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="/template/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+              crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+
+        <!--++++++++++header+++++++++-->
+        <div th:replace="~{layout/header.html}"></div>
+        <!--++++++++++++navbar top++++++++++++++++++-->
+        <div class="mt-2 sticky-top" style="background: #046056">
+            <nav class="navbar navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-light ps-5 click" href="/">Home</a>
+                    <a class="navbar-brand text-light click" href="/employee/list">Employee</a>
+                    <a class="navbar-brand text-light click" href="/customer/list">Customer</a>
+                    <a class="navbar-brand text-light click" href="/service/list">Service</a>
+                    <a class="navbar-brand text-light click" href="/contract/list">Contract</a>
+                    <form class="d-flex m-0">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+
+        <!--+++++++++content++++++++-->
+        <div class="row">
+            <div th:replace="~{layout/sidebar.html}"></div>
+            <div class="col-md-10 container">
+                <center>
+                    <h1 class="font-text-footer">Create Customer</h1>
+                    <div th:if="${mess !=null}">
+                        <h2 class="text-danger" th:text="${mess}"></h2>
+                    </div>
+                    <br>
+                    <div class="container">
+                        <form action="/customer/edit" method="post" th:object="${customer}">
+                            <div class="input-group mb-3">
+                                <input type="hidden" th:field="*{id}" th:value="${customer.id}">
+                                <span class="input-group-text">Name</span>
+                                <input type="text" class="form-control me-2" placeholder="name customer"
+                                       th:field="*{name}" th:value="*{name}">
+
+                                <span class="input-group-text">Gender</span>
+                                <select th:field="*{gender}" class="me-2">
+                                    <div th:if="*{gender == 1}">
+                                        <option value="1">Nam</option>
+                                        <option value="0">Nữ</option>
+                                    </div>
+
+                                    <div th:if="*{gender == 0}">
+                                        <option value="0">Nữ</option>
+                                        <option value="1">Nam</option>
+                                    </div>
+                                </select>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Birthday</span>
+                                <input th:field="*{birthday}" th:value="*{birthday}" type="date"
+                                       class="form-control me-2"
+                                       placeholder="birthday">
+                                <span class="input-group-text">Type</span>
+
+                                <select th:field="*{typeId}" class="me-2">
+                                    <option value=""></option>
+                                    <option th:each="customerType: ${customerTypeList}"
+                                            th:value="${customerType.typeId}"
+                                            th:text="${customerType.typeName}"
+                                            th:selected="${customerType.typeId.equals(customer.typeId)}"
+                                    ></option>
+                                </select>
+                            </div>
+
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Id Card</span>
+                                <input th:field="*{idCard}" th:value="*{idCard}" type="text" class="form-control me-2"
+                                       placeholder="Id Card">
+
+                                <span class="input-group-text">Phone</span>
+                                <input th:field="*{phone}" th:value="*{phone}" type="text" class="form-control me-2"
+                                       placeholder="phone number">
+                            </div>
+
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Email</span>
+                                <input th:field="*{email}" th:value="*{email}" type="text" class="form-control me-2"
+                                       placeholder="email">
+
+                                <span class="input-group-text">Address</span>
+                                <input th:field="*{address}" th:value="*{address}" type="text" class="form-control me-2"
+                                       placeholder="address">
+                            </div>
+
+                            <br>
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </form>
+                    </div>
+                </center>
+            </div>
+        </div>
+
+        <!--+++++footer+++++++-->
+        <div>
+            <div th:replace="~{layout/footer.html}"></div>
+        </div>
+
+    </body>
+    <script src="/template/bootstrap/jquery-3.6.0.min.js"></script>
+    <script src="/template/bootstrap/js/bootstrap.js"></script>
+    <script src="/template/main.js"></script>
+</html>

@@ -1,0 +1,1 @@
+insert into education_degree(name) values ("Trung cấp"),  ("Cao đẳng"),  ("Đại học"),  ("Sau đại học");

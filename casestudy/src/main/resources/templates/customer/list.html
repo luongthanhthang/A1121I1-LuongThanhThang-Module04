@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="/template/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="/template/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+              crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+        <!--++++++++++header+++++++++-->
+        <div th:replace="~{layout/header.html}"></div>
+        <!--++++++++++++navbar top++++++++++++++++++-->
+        <div class="mt-2 sticky-top" style="background: #046056">
+            <nav class="navbar navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-light ps-5 click" href="/">Home</a>
+                    <a class="navbar-brand text-light click" href="/employee/list">Employee</a>
+                    <a class="navbar-brand text-light click" href="/customer/list">Customer</a>
+                    <a class="navbar-brand text-light click" href="/service/list">Service</a>
+                    <a class="navbar-brand text-light click" href="/contract/list">Contract</a>
+                    <form class="d-flex m-0" action="/customer/list" method="get">
+                        <input class="me-2" name="nameSearch" placeholder="Nhập tên" th:value="${nameSearch}">
+                        <input class="me-2" name="emailSearch" placeholder="Nhập email" th:value="${emailSearch}">
+                        <select class="me-2" name="typeSearch">
+                            <option value="">Chọn</option>
+                            <option th:each="customerType: ${customerTypeList}"
+                                    th:value="${customerType.typeId}"
+                                    th:text="${customerType.typeName}"
+                                    th:selected="${customerType.typeId} == ${typeSearch}"
+                            ></option>
+                        </select>
+                        <button class="btn btn-outline-light" type="submit" value="search">Search
+                        </button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+
+        <!--+++++++++content++++++++-->
+        <div class="container-fluid">
+            <div class="row">
+                <div th:replace="~{layout/sidebar.html}"></div>
+                <div class="col-md-10">
+                    <center>
+                        <h1 class="font-text-footer">Customer List</h1>
+                        <div th:if="${mess !=null}">
+                            <h2 class="text-danger" th:text="${mess}"></h2>
+                        </div>
+                    </center>
+                    <br>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Type Name</th>
+                                <th>Name</th>
+                                <th>Birthday</th>
+                                <th>Gender</th>
+                                <th>Id Card</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th></th>
+                                <th><a href="/customer/create">
+                                    <button class="btn btn-secondary w-100">Create</button>
+                                </a></th>
+                            </tr>
+                        </thead>
+                        <tbody th:each="customer: ${customerList}">
+                            <tr>
+                                <td th:text="${customer.id}"></td>
+
+                                <div th:each="customerType: ${customerTypeList}">
+                                    <td th:if="${customerType.typeId == customer.typeId.typeId}"
+                                        th:text="${customerType.typeName}">
+                                    </td>
+                                </div>
+
+                                <td th:text="${customer.name}"></td>
+                                <td style="width: 90px;"
+                                    th:text="${#dates.format(customer.birthday,'dd-MM-yyyy')}"></td>
+                                <td th:text="${customer.gender == 0 ? 'Nữ' :'nam'}"></td>
+                                <td th:text="${customer.idCard}"></td>
+                                <td th:text="${customer.phone}"></td>
+                                <td style="word-break: break-word;" th:text="${customer.email}"></td>
+                                <td style="word-break: break-word;" th:text="${customer.address}"></td>
+                                <td>
+                                    <a th:href="@{/customer/edit/{id}(id=${customer.id})}">
+                                        <button class="btn btn-primary">Edit</button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    <button type="button"
+                                            th:attr="onclick=|showInfo('${customer.id}','${customer.name}')|"
+                                            class="btn btn-danger"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- phân trang -->
+                    <div th:if="${customerList.totalPages > 1}">
+                        <ul class="pagination">
+                            <li class="page-item" th:if="${customerList.hasPrevious()}">
+                                <a class="page-link"
+                                   th:href="@{'/customer/list'(page=${customerList.number - 1})} + ${condition}">Previous</a>
+                            </li>
+
+                            <li th:each="i:${#numbers.sequence(0, customerList.totalPages - 1)}"
+                                th:class="'page-item ' + (${i==customerList.number} ? 'active')" aria-current="page">
+                                <a class="page-link"
+                                   th:href="@{'/customer/list'(page=${i})} + ${condition}"
+                                   th:text="${i+1}"></a>
+                            </li>
+
+                            <li class="page-item" th:if="${customerList.hasNext()}">
+                                <a class="page-link"
+                                   th:href="@{'/customer/list'(page=${customerList.number + 1})} + ${condition}">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <!-- ---------thêm thẻ form--------->
+                <form action="/customer/delete" method="get">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-danger" id="exampleModalLabel">Xác nhận xoá !</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" hidden id="idCustomer" name="idDelete">
+                            <span>Bạn có muốn xóa Customer </span>
+                            <span class="text-danger" id="nameCustomer"></span><span> không?</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Delete</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--+++++footer+++++++-->
+        <div th:replace="~{layout/footer.html}"></div>
+    </body>
+    <script src="/template/bootstrap/jquery-3.6.0.min.js"></script>
+    <script src="/template/bootstrap/js/bootstrap.js"></script>
+    <script src="/template/main.js"></script>
+    <script>
+        function showInfo(id, name) {
+            document.getElementById("idCustomer").value = id;
+            document.getElementById("nameCustomer").innerText = name;
+        }
+    </script>
+</html>

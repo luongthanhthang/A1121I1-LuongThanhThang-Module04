@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="/template/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="/template/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+              crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+                crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+
+        <!--++++++++++header+++++++++-->
+        <div th:replace="~{layout/header.html}"></div>
+        <!--++++++++++++navbar top++++++++++++++++++-->
+        <div class="mt-2 sticky-top container-fluid" style="background: #046056">
+            <nav class="navbar navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-light ps-5 click" href="/">Home</a>
+                    <a class="navbar-brand text-light click" href="/employee/list">Employee</a>
+                    <a class="navbar-brand text-light click" href="/customer/list">Customer</a>
+                    <a class="navbar-brand text-light click" href="/service/list">Service</a>
+                    <a class="navbar-brand text-light click" href="/contract/list">Contract</a>
+                    <form class="d-flex m-0">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+
+        <!--+++++++++content++++++++-->
+        <div class="row">
+            <div th:replace="~{layout/sidebar.html}"></div>
+            <div class="col-md-10 container-fluid">
+                <center>
+                    <h1 class="font-text-footer">Create contract</h1>
+                    <div th:if="${mess !=null}">
+                        <h2 class="text-danger" th:text="${mess}"></h2>
+                    </div>
+                    <br>
+                    <div class="container-fluid p-0">
+                        <form action="/contract/create" method="post" th:object="${contract}">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Start Date</span>
+                                <input th:field="*{startDate}" type="date" class="form-control me-2"
+                                       placeholder="Start Date">
+
+                                <span class="input-group-text">End date</span>
+                                <input th:field="*{endDate}" type="date" class="form-control me-2" placeholder="End date">
+
+                                <span class="input-group-text">Deposit</span>
+                                <input th:field="*{deposit}" type="number" class="form-control me-2" placeholder="deposit">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Total Money</span>
+                                <input th:field="*{totalMoney}" type="number" class="form-control me-2"
+                                       placeholder="Total Money">
+
+                                <span class="input-group-text">Employee</span>
+                                <select th:field="*{employeeId}" class="me-2">
+                                    <option value="">Chọn</option>
+                                    <div th:each="employee:${employeeList}">
+                                        <option th:value="${employee.id}"
+                                                th:text="${employee.name}"></option>
+                                    </div>
+                                </select>
+
+                                <span class="input-group-text">Customer</span>
+                                <select th:field="*{customerId}" class="me-2">
+                                    <option value="">Chọn</option>
+                                    <div th:each="customer:${customerList}">
+                                        <option th:value="${customer.id}"
+                                                th:text="${customer.name}"></option>
+                                    </div>
+                                </select>
+
+                                <span class="input-group-text">Service</span>
+                                <select th:field="*{serviceId}" class="me-2">
+                                    <option value="">Chọn</option>
+                                    <div th:each="service:${serviceList}">
+                                        <option th:value="${service.id}"
+                                                th:text="${service.name}"></option>
+                                    </div>
+                                </select>
+                            </div>
+
+
+                            <br>
+                            <div class="input-group mb-5 d-flex align-content-center justify-content-center">
+                                <button type="submit" class="btn btn-primary">Create</button>
+                                <button type="button" class="btn btn-primary ms-3"><a style="text-decoration: none"
+                                                                                      class="text-light"
+                                                                                      href="/contract/list">Huỷ</a>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </center>
+            </div>
+        </div>
+
+        <!--+++++footer+++++++-->
+        <div>
+            <div th:replace="~{layout/footer.html}"></div>
+        </div>
+
+    </body>
+    <script src="/template/bootstrap/jquery-3.6.0.min.js"></script>
+    <script src="/template/bootstrap/js/bootstrap.js"></script>
+    <script src="/template/main.js"></script>
+</html>
