@@ -1,5 +1,7 @@
 package com.codegym.entity;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class AccountRole {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Account account;
+
 
     @ManyToOne
     @JoinColumn(name = "role_id")
