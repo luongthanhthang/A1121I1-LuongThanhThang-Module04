@@ -1,6 +1,5 @@
 package com.codegym.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
